@@ -7,3 +7,5 @@ pipelineConfig:
       value: "false"
     - name: UPDATE_OWASP_DB
       value: "false"
+    - name: SKIP_CHECKSTYLE
+      value: "true"
