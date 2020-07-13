@@ -46,10 +46,13 @@ spec:
                   url:
                     type: string
                     format: uri
+            url:
+              type: string
+              format: uri
             thumbnail:
               type: string
               maxLength: 320000
-            version:
+            versions:
               type: array
               items:
                 type: object
