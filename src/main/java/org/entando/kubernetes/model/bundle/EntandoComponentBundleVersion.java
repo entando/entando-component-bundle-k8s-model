@@ -38,11 +38,13 @@ public class EntandoComponentBundleVersion implements Serializable {
     private String version;
     private String integrity;
     private String timestamp;
+    private String url;
 
-    public EntandoComponentBundleVersion(String version, String integrity, String timestamp) {
+    public EntandoComponentBundleVersion(String version, String integrity, String timestamp, String url) {
         this.version = version;
         this.integrity = integrity;
         this.timestamp = timestamp;
+        this.url = url;
     }
 
     public EntandoComponentBundleVersion() {
@@ -60,6 +62,10 @@ public class EntandoComponentBundleVersion implements Serializable {
         this.timestamp = timestamp;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public String getVersion() {
         return version;
     }
@@ -72,4 +78,7 @@ public class EntandoComponentBundleVersion implements Serializable {
         return this.timestamp;
     }
 
+    public String getUrl() {
+        return this.url;
+    }
 }
