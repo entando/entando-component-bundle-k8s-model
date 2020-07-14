@@ -23,35 +23,32 @@ import io.fabric8.kubernetes.client.dsl.internal.CustomResourceOperationsImpl;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.entando.kubernetes.model.bundle.DoneableEntandoComponentBundle;
 import org.entando.kubernetes.model.bundle.EntandoComponentBundle;
 import org.entando.kubernetes.model.bundle.EntandoComponentBundleOperationFactory;
 
-public class EntandoResourceOperationsRegistry {
+public class EntandoComponentBundleOperationRegistry {
 
-    private static final Map<Class<? extends EntandoBaseCustomResource>, OperationsSupplier> OPERATION_SUPPLIERS = getOperationSuppliers();
+    private static final OperationsSupplier OPERATION_SUPPLIER = getOperationSupplier();
     private final KubernetesClient client;
     @SuppressWarnings("unchecked")
     private final Map<Class, CustomResourceOperationsImpl> customResourceOperations =
             new ConcurrentHashMap<>();
 
-    public EntandoResourceOperationsRegistry(KubernetesClient client) {
+    public EntandoComponentBundleOperationRegistry(KubernetesClient client) {
         this.client = client;
     }
 
-    private static Map<Class<? extends EntandoBaseCustomResource>, OperationsSupplier> getOperationSuppliers() {
-        Map<Class<? extends EntandoBaseCustomResource>, OperationsSupplier> operationSuppliers = new ConcurrentHashMap<>();
-        operationSuppliers.put(EntandoComponentBundle.class, EntandoComponentBundleOperationFactory::produceAllEntandoComponentBundles);
-        return Collections.unmodifiableMap(operationSuppliers);
+    private static OperationsSupplier getOperationSupplier() {
+        return EntandoComponentBundleOperationFactory::produceAllEntandoComponentBundles;
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends EntandoCustomResource, D extends Doneable<T>> CustomResourceOperationsImpl<T,
-            CustomResourceList<T>, D> getOperations(Class<T> c) {
-        return this.customResourceOperations.computeIfAbsent(c, aClass -> OPERATION_SUPPLIERS.get(aClass).get(client));
+    public CustomResourceOperationsImpl<EntandoComponentBundle, CustomResourceList<EntandoComponentBundle>, DoneableEntandoComponentBundle> getOperations() {
+        return OPERATION_SUPPLIER.get(client);
     }
 
     private interface OperationsSupplier {
-
         CustomResourceOperationsImpl get(KubernetesClient client);
     }
 

@@ -49,11 +49,11 @@ public abstract class AbstractEntandoDeBundleTest implements CustomResourceTestU
     public static final String IMAGE_1_URL = "http://example.com/images/1";
     public static final String IMAGE_2_URL = "http://example.com/images/2";
     protected static final String NAMESPACE = TestConfig.calculateNameSpace("my-namespace");
-    private EntandoResourceOperationsRegistry registry;
+    private EntandoComponentBundleOperationRegistry registry;
 
     @BeforeEach
     public void deleteAllEntandoComponentBundles() {
-        this.registry = new EntandoResourceOperationsRegistry(getClient());
+        this.registry = new EntandoComponentBundleOperationRegistry(getClient());
         prepareNamespace(entandoComponentBundles(), NAMESPACE);
     }
 
@@ -185,7 +185,7 @@ public abstract class AbstractEntandoDeBundleTest implements CustomResourceTestU
 
     protected CustomResourceOperationsImpl<EntandoComponentBundle, CustomResourceList<EntandoComponentBundle>,
             DoneableEntandoComponentBundle> entandoComponentBundles() {
-        return registry.getOperations(EntandoComponentBundle.class);
+        return registry.getOperations();
     }
 
 }
