@@ -21,18 +21,20 @@ public abstract class EntandoComponentBundleVersionFluent<N extends EntandoCompo
     private String version;
     private String integrity;
     private String timestamp;
+    private String url;
 
-    public EntandoComponentBundleVersionFluent(EntandoComponentBundleVersion tag) {
-        this.version = tag.getVersion();
-        this.integrity = tag.getIntegrity();
-        this.timestamp = tag.getTimestamp();
+    public EntandoComponentBundleVersionFluent(EntandoComponentBundleVersion version) {
+        this.version = version.getVersion();
+        this.integrity = version.getIntegrity();
+        this.timestamp = version.getTimestamp();
+        this.url = version.getUrl();
     }
 
     public EntandoComponentBundleVersionFluent() {
     }
 
     public EntandoComponentBundleVersion build() {
-        return new EntandoComponentBundleVersion(version, integrity, timestamp);
+        return new EntandoComponentBundleVersion(version, integrity, timestamp, url);
     }
 
     public N withVersion(String version) {
@@ -47,6 +49,11 @@ public abstract class EntandoComponentBundleVersionFluent<N extends EntandoCompo
 
     public N withTimestamp(String timestamp) {
         this.timestamp = timestamp;
+        return thisAsN();
+    }
+
+    public N withUrl(String url) {
+        this.url = url;
         return thisAsN();
     }
 

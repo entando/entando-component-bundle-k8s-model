@@ -40,9 +40,11 @@ public abstract class AbstractEntandoDeBundleTest implements CustomResourceTestU
     public static final String VERSION_1_VERSION = "0.0.1";
     public static final String VERSION_1_INTEGRITY = "asdfasdf";
     public static final String VERSION_1_TIMESTAMP = "2020-07-13T09:00:00Z";
+    public static final String VERSION_1_URL = "";
     public static final String VERSION_2_VERSION = "0.0.2";
     public static final String VERSION_2_INTEGRITY = "";
     public static final String VERSION_2_TIMESTAMP = "2020-07-15T08:00:00Z";
+    public static final String VERSION_2_URL = "http://inexistent.entando.com/npm-registry/~/my-bundle-0.0.2.tgz";
     public static final String THUMBNAIL = "Jyt6tAV2CLeDid2LiT34tA";
     public static final String IMAGE_1_URL = "http://example.com/images/1";
     public static final String IMAGE_2_URL = "http://example.com/images/2";
@@ -81,11 +83,13 @@ public abstract class AbstractEntandoDeBundleTest implements CustomResourceTestU
                 .withTimestamp(VERSION_1_TIMESTAMP)
                 .withIntegrity(VERSION_1_INTEGRITY)
                 .withVersion(VERSION_1_VERSION)
+                .withUrl(VERSION_1_URL)
                 .endVersion()
                 .addNewVersion()
                 .withVersion(VERSION_2_VERSION)
                 .withIntegrity(VERSION_2_INTEGRITY)
                 .withTimestamp(VERSION_2_TIMESTAMP)
+                .withUrl(VERSION_2_URL)
                 .endVersion()
                 .endSpec()
                 .build();
@@ -111,9 +115,11 @@ public abstract class AbstractEntandoDeBundleTest implements CustomResourceTestU
         assertThat(actual.getSpec().getVersions().get(0).getVersion(), is(VERSION_1_VERSION));
         assertThat(actual.getSpec().getVersions().get(0).getIntegrity(), is(VERSION_1_INTEGRITY));
         assertThat(actual.getSpec().getVersions().get(0).getTimestamp(), is(VERSION_1_TIMESTAMP));
+        assertThat(actual.getSpec().getVersions().get(0).getUrl(), is(VERSION_1_URL));
         assertThat(actual.getSpec().getVersions().get(1).getVersion(), is(VERSION_2_VERSION));
         assertThat(actual.getSpec().getVersions().get(1).getIntegrity(), is(VERSION_2_INTEGRITY));
         assertThat(actual.getSpec().getVersions().get(1).getTimestamp(), is(VERSION_2_TIMESTAMP));
+        assertThat(actual.getSpec().getVersions().get(1).getUrl(), is(VERSION_2_URL));
     }
 
     @Test
