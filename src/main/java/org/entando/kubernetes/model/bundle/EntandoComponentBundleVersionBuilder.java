@@ -16,13 +16,13 @@
 
 package org.entando.kubernetes.model.bundle;
 
-public class EntandoComponentBundleVersionsBuilder extends
-        EntandoComponentBundleVersionFluent<EntandoComponentBundleVersionsBuilder> {
+public class EntandoComponentBundleVersionBuilder extends
+        EntandoComponentBundleVersionFluent<EntandoComponentBundleVersionBuilder> {
 
-    public EntandoComponentBundleVersionsBuilder(EntandoComponentBundleVersion version) {
+    public EntandoComponentBundleVersionBuilder(EntandoComponentBundleVersion version) {
         super(version);
     }
 
-    public EntandoComponentBundleVersionsBuilder() {
+    public EntandoComponentBundleVersionBuilder() {
     }
 }

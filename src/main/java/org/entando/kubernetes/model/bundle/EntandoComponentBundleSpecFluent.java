@@ -17,7 +17,6 @@
 package org.entando.kubernetes.model.bundle;
 
 import io.fabric8.kubernetes.api.builder.Nested;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +31,7 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
     protected String thumbnail;
     protected List<EntandoComponentBundleImage> images = new ArrayList<>();
     protected String url;
-    protected List<EntandoComponentBundleVersionsBuilder> versions = new ArrayList<>();
+    protected List<EntandoComponentBundleVersionBuilder> versions = new ArrayList<>();
 
     public EntandoComponentBundleSpecFluent(EntandoComponentBundleSpec spec) {
         this.code = spec.getCode();
@@ -49,8 +48,8 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
     public EntandoComponentBundleSpecFluent() {
     }
 
-    private List<EntandoComponentBundleVersionsBuilder> createTagBuilders(List<EntandoComponentBundleVersion> versions) {
-        return versions.stream().map(EntandoComponentBundleVersionsBuilder::new).collect(Collectors.toList());
+    private List<EntandoComponentBundleVersionBuilder> createTagBuilders(List<EntandoComponentBundleVersion> versions) {
+        return versions.stream().map(EntandoComponentBundleVersionBuilder::new).collect(Collectors.toList());
     }
 
     private List<EntandoComponentBundleImageBuilder> createImageBuilders(List<EntandoComponentBundleImage> images) {
@@ -114,7 +113,7 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
     }
 
     public A withVersions(List<EntandoComponentBundleVersion> versionList) {
-        this.versions = versionList.stream().map(EntandoComponentBundleVersionsBuilder::new).collect(Collectors.toList());
+        this.versions = versionList.stream().map(EntandoComponentBundleVersionBuilder::new).collect(Collectors.toList());
         return thisAsA();
     }
 
@@ -128,7 +127,7 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
     }
 
     public A addToVersions(EntandoComponentBundleVersion tag) {
-        this.versions.add(new EntandoComponentBundleVersionsBuilder(tag));
+        this.versions.add(new EntandoComponentBundleVersionBuilder(tag));
         return thisAsA();
     }
 
