@@ -24,8 +24,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.fabric8.kubernetes.api.model.ObjectMeta;
+import io.fabric8.kubernetes.client.CustomResource;
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import org.entando.kubernetes.model.EntandoBaseCustomResource;
+import org.entando.kubernetes.model.EntandoCustomResource;
 
 @JsonSerialize
 @JsonDeserialize
@@ -34,9 +35,11 @@ import org.entando.kubernetes.model.EntandoBaseCustomResource;
         setterVisibility = Visibility.NONE)
 @RegisterForReflection
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EntandoComponentBundle extends EntandoBaseCustomResource<EntandoComponentBundleSpec> {
+public class EntandoComponentBundle extends CustomResource implements EntandoCustomResource {
 
     public static final String CRD_NAME = "entandocomponentbundles.entando.org";
+
+    private EntandoComponentBundleSpec spec;
 
     public EntandoComponentBundle() {
         this(null, null);
@@ -47,11 +50,17 @@ public class EntandoComponentBundle extends EntandoBaseCustomResource<EntandoCom
     }
 
     public EntandoComponentBundle(ObjectMeta metadata, EntandoComponentBundleSpec spec) {
-        super(metadata, spec);
+        super();
+        super.setMetadata(metadata);
+        this.spec = spec;
     }
 
     @Override
     public String getDefinitionName() {
         return CRD_NAME;
+    }
+
+    public EntandoComponentBundleSpec getSpec() {
+        return spec;
     }
 }
