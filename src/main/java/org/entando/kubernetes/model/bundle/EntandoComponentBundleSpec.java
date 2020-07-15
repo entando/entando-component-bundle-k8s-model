@@ -45,7 +45,6 @@ public class EntandoComponentBundleSpec implements Serializable {
     private EntandoComponentBundleAuthor author;
     private String organization;
     private String thumbnail;
-    private List<EntandoComponentBundleImage> images = new ArrayList<>();
     private String url;
     private List<EntandoComponentBundleVersion> versions = new ArrayList<>();
 
@@ -55,7 +54,7 @@ public class EntandoComponentBundleSpec implements Serializable {
 
     @SuppressWarnings("unchecked")
     public EntandoComponentBundleSpec(String code, String title, String description, EntandoComponentBundleAuthor author,
-            String organization, String thumbnail, List<EntandoComponentBundleImage> images, String url,
+            String organization, String thumbnail, String url,
             List<EntandoComponentBundleVersion> versionList) {
         this.code = code;
         this.title = title;
@@ -63,7 +62,6 @@ public class EntandoComponentBundleSpec implements Serializable {
         this.author = author;
         this.organization = organization;
         this.thumbnail = thumbnail;
-        this.images = coalesce(images, this.images);
         this.url = url;
         this.versions = coalesce(versionList, this.versions);
     }
@@ -90,10 +88,6 @@ public class EntandoComponentBundleSpec implements Serializable {
 
     public String getThumbnail() {
         return thumbnail;
-    }
-
-    public List<EntandoComponentBundleImage> getImages() {
-        return images;
     }
 
     public String getUrl() {

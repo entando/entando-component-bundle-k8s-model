@@ -38,14 +38,6 @@ spec:
                 minLength: 3
                 maxLength: 255
                 pattern: '^(?:[a-z0-9]+[\-_\.]?)+$'
-            images:
-              type: array
-              items:
-                type: object
-                properties:
-                  url:
-                    type: string
-                    format: uri
             url:
               type: string
               format: uri

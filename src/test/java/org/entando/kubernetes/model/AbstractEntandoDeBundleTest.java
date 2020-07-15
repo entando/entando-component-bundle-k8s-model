@@ -46,8 +46,6 @@ public abstract class AbstractEntandoDeBundleTest implements CustomResourceTestU
     public static final String VERSION_2_TIMESTAMP = "2020-07-15T08:00:00Z";
     public static final String VERSION_2_URL = "http://inexistent.entando.com/npm-registry/~/my-bundle-0.0.2.tgz";
     public static final String THUMBNAIL = "Jyt6tAV2CLeDid2LiT34tA";
-    public static final String IMAGE_1_URL = "http://example.com/images/1";
-    public static final String IMAGE_2_URL = "http://example.com/images/2";
     protected static final String NAMESPACE = TestConfig.calculateNameSpace("my-namespace");
     private EntandoComponentBundleOperationRegistry registry;
 
@@ -73,10 +71,6 @@ public abstract class AbstractEntandoDeBundleTest implements CustomResourceTestU
                 .withName(AUTHOR_NAME)
                 .withEmail(AUTHOR_EMAIL)
                 .endAuthor()
-                .withNewImages()
-                .addImageUrl(IMAGE_1_URL)
-                .addImageUrl(IMAGE_2_URL)
-                .endImages()
                 .withOrganization(ORGANIZATION)
                 .withUrl(REPO_URL)
                 .addNewVersion()
@@ -108,9 +102,6 @@ public abstract class AbstractEntandoDeBundleTest implements CustomResourceTestU
         assertThat(actual.getSpec().getOrganization(), is(ORGANIZATION));
         assertThat(actual.getSpec().getUrl(), is(REPO_URL));
         assertThat(actual.getSpec().getThumbnail(), is(THUMBNAIL));
-        assertThat(actual.getSpec().getImages(), hasSize(2));
-        assertThat(actual.getSpec().getImages().get(0).getUrl(), is(IMAGE_1_URL));
-        assertThat(actual.getSpec().getImages().get(1).getUrl(), is(IMAGE_2_URL));
         assertThat(actual.getSpec().getVersions(), hasSize(2));
         assertThat(actual.getSpec().getVersions().get(0).getVersion(), is(VERSION_1_VERSION));
         assertThat(actual.getSpec().getVersions().get(0).getIntegrity(), is(VERSION_1_INTEGRITY));
@@ -136,10 +127,6 @@ public abstract class AbstractEntandoDeBundleTest implements CustomResourceTestU
                 .withDescription(DESCRIPTION)
                 .withOrganization(ORGANIZATION)
                 .withThumbnail("H0cFRNTEJt8EZBcL17_iww")
-                .withNewImages()
-                .addImageUrl(IMAGE_1_URL)
-                .addImageUrl(IMAGE_2_URL)
-                .endImages()
                 .addNewVersion()
                 .withVersion(VERSION_1_VERSION)
                 .withTimestamp(VERSION_1_TIMESTAMP)

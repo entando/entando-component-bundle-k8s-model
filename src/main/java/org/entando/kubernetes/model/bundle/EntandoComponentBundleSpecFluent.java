@@ -29,7 +29,6 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
     protected EntandoComponentBundleAuthor author;
     protected String organization;
     protected String thumbnail;
-    protected List<EntandoComponentBundleImage> images = new ArrayList<>();
     protected String url;
     protected List<EntandoComponentBundleVersionBuilder> versions = new ArrayList<>();
 
@@ -40,7 +39,6 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
         this.author = spec.getAuthor();
         this.organization = spec.getOrganization();
         this.thumbnail = spec.getThumbnail();
-        this.images = spec.getImages();
         this.url = spec.getUrl();
         this.versions = createTagBuilders(spec.getVersions());
     }
@@ -50,10 +48,6 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
 
     private List<EntandoComponentBundleVersionBuilder> createTagBuilders(List<EntandoComponentBundleVersion> versions) {
         return versions.stream().map(EntandoComponentBundleVersionBuilder::new).collect(Collectors.toList());
-    }
-
-    private List<EntandoComponentBundleImageBuilder> createImageBuilders(List<EntandoComponentBundleImage> images) {
-        return images.stream().map(EntandoComponentBundleImageBuilder::new).collect(Collectors.toList());
     }
 
     public A withCode(String code) {
@@ -95,23 +89,6 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
        return thisAsA();
     }
 
-    public A addImageUrl(String imageUrl) {
-        if (this.images == null) {
-            this.images = new ArrayList<>();
-        }
-        this.images.add(new EntandoComponentBundleImage(imageUrl));
-        return thisAsA();
-    }
-
-    public ImagesNested<A> withNewImages() {
-        return new ImagesNested<>(thisAsA());
-    }
-
-    public A withImageUrls(List<EntandoComponentBundleImage> imageUrls) {
-        this.images = imageUrls;
-        return thisAsA();
-    }
-
     public A withVersions(List<EntandoComponentBundleVersion> versionList) {
         this.versions = versionList.stream().map(EntandoComponentBundleVersionBuilder::new).collect(Collectors.toList());
         return thisAsA();
@@ -144,7 +121,6 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
                 this.author,
                 this.organization,
                 this.thumbnail,
-                this.images,
                 this.url,
                 this.versions.stream().map(EntandoComponentBundleVersionFluent::build).collect(Collectors.toList()));
     }
@@ -188,33 +164,6 @@ public abstract class EntandoComponentBundleSpecFluent<A extends EntandoComponen
             return and();
         }
 
-    }
-
-    public static class ImagesNested<N extends EntandoComponentBundleSpecFluent>
-        implements Nested<N> {
-
-        private final N parentBuilder;
-        private List<EntandoComponentBundleImage> imageUrls;
-
-
-        public ImagesNested(N parentBuilder) {
-            this.parentBuilder = parentBuilder;
-            this.imageUrls = new ArrayList<>();
-        }
-
-        public ImagesNested<N> addImageUrl(String imageUrl) {
-            this.imageUrls.add(new EntandoComponentBundleImage(imageUrl.toString()));
-            return this;
-        }
-
-        @Override
-        public N and() {
-            return (N) parentBuilder.withImageUrls(this.imageUrls);
-        }
-
-        public N endImages() {
-            return and();
-        }
     }
 
 }
